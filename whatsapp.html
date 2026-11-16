@@ -1,0 +1,53 @@
+<script type="text/javascript">
+  RED.nodes.registerType('whatsapp-rs-config', {
+    category: 'config',
+    defaults: { name: { value: '' }, session: { value: 'default', required: true } },
+    credentials: { apiKey: { type: 'password' } },
+    label: function () { return this.name || 'WhatsApp (' + this.session + ')'; },
+  });
+</script>
+<script type="text/html" data-template-name="whatsapp-rs-config">
+  <div class="form-row"><label for="node-config-input-name">Name</label><input type="text" id="node-config-input-name"></div>
+  <div class="form-row"><label for="node-config-input-apiKey">API key</label><input type="password" id="node-config-input-apiKey" placeholder="ch_live_..."></div>
+  <div class="form-row"><label for="node-config-input-session">Session</label><input type="text" id="node-config-input-session"></div>
+</script>
+<script type="text/html" data-help-name="whatsapp-rs-config">
+  <p>Credentials for the WhatsApp Messaging API by Retention Stack.</p>
+  <p>Get a key at <a href="https://whatsapp-messaging.retentionstack.agency/start" target="_blank">whatsapp-messaging.retentionstack.agency/start</a>. With a session token (<code>ch_live_...</code>), leave Session as <code>default</code>. With an account key (<code>ak_live_...</code>), enter the session name.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('whatsapp-rs-send', {
+    category: 'network',
+    color: '#25D366',
+    defaults: {
+      name: { value: '' },
+      config: { type: 'whatsapp-rs-config', required: true },
+      to: { value: '' },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'font-awesome/fa-whatsapp',
+    paletteLabel: 'whatsapp send',
+    label: function () { return this.name || 'whatsapp send'; },
+  });
+</script>
+<script type="text/html" data-template-name="whatsapp-rs-send">
+  <div class="form-row"><label for="node-input-name">Name</label><input type="text" id="node-input-name"></div>
+  <div class="form-row"><label for="node-input-config">Account</label><input type="text" id="node-input-config"></div>
+  <div class="form-row"><label for="node-input-to">To</label><input type="text" id="node-input-to" placeholder="14155550123 or ...@g.us"></div>
+</script>
+<script type="text/html" data-help-name="whatsapp-rs-send">
+  <p>Sends <code>msg.payload</code> as a WhatsApp text message from a number you linked by QR code.</p>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">string</span></dt><dd>Message text. Objects are sent as JSON.</dd>
+    <dt class="optional">to <span class="property-type">string</span></dt><dd>Phone number with country code (digits only) or a group ID ending in <code>@g.us</code>. Overrides the node's To field.</dd>
+  </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>payload <span class="property-type">object</span></dt><dd>The API response.</dd>
+    <dt>statusCode <span class="property-type">number</span></dt><dd>HTTP status.</dd>
+  </dl>
+  <p>Errors (bad key, unlinked number, invalid recipient) can be caught with a Catch node.</p>
+</script>

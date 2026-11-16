@@ -1,0 +1,18 @@
+{
+  "name": "node-red-contrib-whatsapp-retentionstack",
+  "version": "0.1.0",
+  "description": "Node-RED node to send WhatsApp messages from a number linked by QR code. No WhatsApp Business account needed.",
+  "main": "whatsapp.js",
+  "scripts": { "test": "node test.js" },
+  "files": ["whatsapp.js", "whatsapp.html"],
+  "keywords": ["node-red", "whatsapp", "whatsapp-api", "home-assistant", "notifications", "messaging"],
+  "node-red": {
+    "version": ">=3.0.0",
+    "nodes": { "whatsapp": "whatsapp.js" }
+  },
+  "engines": { "node": ">=18" },
+  "homepage": "https://whatsapp-messaging.retentionstack.agency",
+  "repository": { "type": "git", "url": "git+https://github.com/jevil25/node-red-contrib-whatsapp-retentionstack.git" },
+  "author": "Retention Stack",
+  "license": "MIT"
+}
